@@ -1,14 +1,14 @@
-package com.example.recuperatorio;
+package com.example.recuperatorio.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class LogIn extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_log_in);
+        /*setContentView(R.layout.activity_menu);*/
     }
 }

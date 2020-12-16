@@ -1,4 +1,4 @@
-package com.example.recuperatorio;
+package com.example.recuperatorio.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.recuperatorio.R;
 
 public class Register extends AppCompatActivity {
 

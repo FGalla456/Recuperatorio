@@ -2,9 +2,9 @@ package com.example.recuperatorio.AccesoDatos;
 
 public class DataDB {
     public static String host="sql10.freesqldatabase.com";
-    public static String port="";
-    public static String nameBD="";
-    public static String user="";
+    public static String port="3306";
+    public static String nameBD="sql10368678";
+    public static String user="sql10368678";
     public static String pass="";
 
 
