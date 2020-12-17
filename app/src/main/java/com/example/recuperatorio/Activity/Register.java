@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recuperatorio.AccesoDatos.UsuarioDao;
@@ -17,28 +18,26 @@ import java.util.Date;
 
 public class Register extends AppCompatActivity {
 
-    private EditText nombre;
-    private EditText dni;
-    private EditText email;
+    private TextView nombre;
+    private TextView dni;
+    private TextView email;
     private EditText fecha;
-    private EditText contrasena;
-    private EditText contraseniaRepeat;
-    private Toast alertEmpty;
+    private TextView contrasena;
+    private TextView contraseniaRepeat;
     private UsuarioDao userDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        nombre = (EditText) findViewById(R.id.txt_Correo);
-        email = (EditText) findViewById(R.id.edt_email);
-        dni = (EditText) findViewById(R.id.edt_dni);
-        fecha = (EditText) findViewById(R.id.edt_fecha);
-        contrasena = (EditText) findViewById(R.id.txt_Contrasena);
-        contraseniaRepeat = (EditText) findViewById(R.id.edt_repetirContrasenia);
-        alertEmpty = Toast.makeText(getApplicationContext(), "Debe completar todos los campos.", Toast.LENGTH_SHORT);
-
+        nombre =  findViewById(R.id.txtNombre);
+        email =  findViewById(R.id.txt_Correo);
+        dni =  findViewById(R.id.txt_dni);
+        fecha =  findViewById(R.id.txt_fecha);
+        contrasena =  findViewById(R.id.txt_Contrasena);
+        contraseniaRepeat = findViewById(R.id.txt_repetirContrasenia);
     }
+
     public void register(View view){
         String nombreUser = nombre.getText().toString();
         String dniUser = dni.getText().toString();
@@ -47,15 +46,16 @@ public class Register extends AppCompatActivity {
         String idLocalidad = nombre.getText().toString();
         String contrasenaUser = contrasena.getText().toString();
         String repetirContraseniaUser = contraseniaRepeat.toString();
-        if(!nombreUser.isEmpty() && !emailUser.isEmpty() && !dniUser.isEmpty() && !fechaUser.isEmpty()
-                && !emailUser.isEmpty() && !idLocalidad.isEmpty() && !contrasenaUser.isEmpty() && !repetirContraseniaUser.isEmpty()){
+        if(!ValidarCampos()){
             if(contrasenaUser.equals(repetirContraseniaUser)){
                 Usuario user = new Usuario(nombreUser, getFecha(fechaUser) ,Integer.parseInt(dniUser),emailUser,'1',contrasenaUser);
                 userDao = new UsuarioDao();
                 userDao.SaveUser(user);
             }
-        }else{
-            alertEmpty.show();
+            else
+            {
+                    Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG);
+            }
         }
     }
 
@@ -68,6 +68,47 @@ public class Register extends AppCompatActivity {
             e.printStackTrace();
         }
         return date;
+    }
+
+    private boolean ValidarCampos()
+    {
+        boolean Error = false;
+        String DatosError = "";
+        if(nombre.getText().length() < 1)
+        {
+            DatosError += "-Nombre Invalido";
+            Error = true;
+        }
+        SaltoLinea(DatosError);
+        if(dni.getText().length() < 3)
+        {
+            DatosError += "-DNI Invalido";
+            Error = true;
+        }
+        SaltoLinea(DatosError);
+        if(email.getText().length() < 2)
+        {
+            DatosError += "-Correo Invalido";
+            Error = true;
+        }
+        SaltoLinea(DatosError);
+        if(contrasena.getText().length() < 6)
+        {
+            DatosError += " -Contraseña Invalida";
+            Error = true;
+        }
+
+        Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
+        return  Error;
+    }
+
+    private String SaltoLinea(String texto)
+    {
+        if(texto != "")
+        {
+            texto += "\n";
+        }
+        return texto;
     }
 
 }

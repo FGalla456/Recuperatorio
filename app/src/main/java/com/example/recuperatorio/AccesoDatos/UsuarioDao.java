@@ -10,13 +10,15 @@ import java.sql.Statement;
 import kotlin.text.UStringsKt;
 
 public class UsuarioDao {
+    private DataDB db;
 
     public String SaveUser(Usuario user){
         String response = "";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
-            Statement st = con.createStatement();
+            Statement st = db.AccesoDatos();
+            //Class.forName("com.mysql.jdbc.Driver");
+            //Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
+            // Statement st = con.createStatement();
             st.execute("INSERT INTO usuarios (nombre, dni, nacimiento, email, id_localidad, contrasena) " +
                     "VALUES ('"+user.getNombre()+"', "+user.getDni()+" ,"+user.getNacimiento()+", " +
                     "'"+ user.getEmail() +"', "+ user.getIdLocalidad()+", '"+user.getContrasena()+"')");

@@ -36,7 +36,10 @@ public class LogIn extends AppCompatActivity {
     {
         if(!ValidarCampos())
         {
-            U = NU.BuscarUsuario(Correo.getText().toString(),Contrasena.getText().toString());
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+          //  U = NU.BuscarUsuario(Correo.getText().toString(),Contrasena.getText().toString());
+
         }
       /*  if(username.getText().length() > 0 && password.getText().length() > 0){
             AdminSQLite admin = new AdminSQLite(this, "BaseDatosTp3", null, 1);
@@ -105,8 +108,10 @@ public class LogIn extends AppCompatActivity {
             Error = true;
         }
 
-        Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
-
+        if(Error == true)
+        {
+            Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
+        }
         return  Error;
     }
 }

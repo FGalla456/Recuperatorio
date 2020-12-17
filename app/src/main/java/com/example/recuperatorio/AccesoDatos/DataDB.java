@@ -1,4 +1,8 @@
 package com.example.recuperatorio.AccesoDatos;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class DataDB {
     public static String host="db4free.net";
@@ -12,4 +16,18 @@ public class DataDB {
     public static String driver = "com.mysql.jdbc.Driver";
 
 
+    public Statement AccesoDatos()
+    {
+        Statement st = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
+            st = con.createStatement();
+        }
+        catch (Exception e)
+        {
+
+        }
+        return st;
+    }
 }
