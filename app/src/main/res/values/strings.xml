@@ -14,8 +14,6 @@
     <string name="txt_repetir_contrasena">Repetir Contraseña</string>
     <string name="agregar_evento">Agregar Evento</string>
     <string name="mis_eventos">Mis Eventos</string>
-    <string name="header_user">Mis Eventos</string>
-    <string name="header_email">Mis Eventos</string>
     <string name="events">Eventos</string>
     <string name="lbl_Titulo">Titulo</string>
     <string name="lbl_Descripcion">Descripcion</string>

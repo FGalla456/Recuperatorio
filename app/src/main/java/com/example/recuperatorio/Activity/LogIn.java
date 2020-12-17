@@ -9,18 +9,35 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.recuperatorio.R;
+import com.example.recuperatorio.Negocio.N_Usuario;
+import com.example.recuperatorio.Dominio.Usuario;
 
 public class LogIn extends AppCompatActivity {
+
+    private TextView Correo;
+    private TextView Contrasena;
+    private N_Usuario NU;
+    private Usuario U;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+        Correo = findViewById(R.id.txt_Correo);
+        Contrasena = findViewById(R.id.txt_Contrasena);
     }
 
-    public void login(View view){
+    public void login(View view)
+    {
+        if(!ValidarCampos())
+        {
+            U = NU.BuscarUsuario(Correo.getText().toString(),Contrasena.getText().toString());
+        }
       /*  if(username.getText().length() > 0 && password.getText().length() > 0){
             AdminSQLite admin = new AdminSQLite(this, "BaseDatosTp3", null, 1);
             SQLiteDatabase BasedeDatos = admin.getWritableDatabase();
@@ -50,5 +67,46 @@ public class LogIn extends AppCompatActivity {
                 alertEmpty.show();
             }
         }*/
+    }
+
+    public void Redirigir(View view)
+    {
+        Intent intent = new Intent(this, Register.class);
+        startActivity(intent);
+    }
+
+    private boolean ValidarCampos()
+    {
+        boolean Error = false;
+        String DatosError = "";
+        if(Correo.getText().length() < 2)
+        {
+            DatosError += "- Correo Invalido";
+            Error = true;
+        }
+        else
+        {
+            if(!Correo.getText().toString().contains("@"))
+            {
+                DatosError += "- Correo Invalido";
+                Error = true;
+            }
+        }
+        if (Contrasena.getText().length() < 6)
+        {
+            if(DatosError == "")
+            {
+                DatosError += "- Contraseña Invalida";
+            }
+            else
+            {
+                DatosError += "\n- Contraseña Invalida";
+            }
+            Error = true;
+        }
+
+        Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
+
+        return  Error;
     }
 }

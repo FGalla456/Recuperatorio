@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import kotlin.text.UStringsKt;
+
 public class UsuarioDao {
 
     public String SaveUser(Usuario user){
@@ -27,5 +29,13 @@ public class UsuarioDao {
         return response;
 
     }
+
+   /* public Usuario DevolverUsuario(String Correo, String Contrasena)
+    {
+        Usuario U;
+        // "select * from usuarios when email = '" + Correo + "' , and contrasena = '" + Contrasena + "'";
+
+        return U;
+    }*/
 }
 

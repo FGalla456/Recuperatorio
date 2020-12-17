@@ -2,9 +2,6 @@ package com.example.recuperatorio.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,11 +30,11 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        nombre = (EditText) findViewById(R.id.edt_nombre);
+        nombre = (EditText) findViewById(R.id.txt_Correo);
         email = (EditText) findViewById(R.id.edt_email);
         dni = (EditText) findViewById(R.id.edt_dni);
         fecha = (EditText) findViewById(R.id.edt_fecha);
-        contrasena = (EditText) findViewById(R.id.edt_contrasenia);
+        contrasena = (EditText) findViewById(R.id.txt_Contrasena);
         contraseniaRepeat = (EditText) findViewById(R.id.edt_repetirContrasenia);
         alertEmpty = Toast.makeText(getApplicationContext(), "Debe completar todos los campos.", Toast.LENGTH_SHORT);
 
