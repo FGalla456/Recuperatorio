@@ -65,7 +65,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/edt_email2"
+                    android:id="@+id/edt_dni"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -96,7 +96,7 @@
                     android:inputType="textEmailAddress" />
 
                 <EditText
-                    android:id="@+id/edt_email3"
+                    android:id="@+id/edt_fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -107,7 +107,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="@string/txt_fecha"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="date" />
             </LinearLayout>
 
             <EditText
