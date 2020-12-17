@@ -12,11 +12,16 @@
     <string name="txt_correo">Correo electrónico</string>
     <string name="txt_contrasena">Contraseña</string>
     <string name="txt_repetir_contrasena">Repetir Contraseña</string>
-    <string name="btn_aceptar">Aceptar</string>
     <string name="agregar_evento">Agregar Evento</string>
     <string name="mis_eventos">Mis Eventos</string>
     <string name="header_user">Mis Eventos</string>
     <string name="header_email">Mis Eventos</string>
     <string name="events">Eventos</string>
+    <string name="lbl_Titulo">Titulo</string>
+    <string name="lbl_Descripcion">Descripcion</string>
+    <string name="lbl_Fecha">Fecha</string>
+    <string name="lbl_Hora">Hora</string>
+    <string name="lbl_Categoria">Categoria</string>
+    <string name="btn_Aceptar">Aceptar</string>
 
 </resources>

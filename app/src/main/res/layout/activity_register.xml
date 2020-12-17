@@ -141,7 +141,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:onClick="register"
-                android:text="@string/btn_aceptar" />
+                android:text="@string/btn_Aceptar" />
 
         </LinearLayout>
     </ScrollView>
