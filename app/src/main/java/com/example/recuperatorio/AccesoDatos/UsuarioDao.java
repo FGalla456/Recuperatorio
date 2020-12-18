@@ -2,25 +2,32 @@ package com.example.recuperatorio.AccesoDatos;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
+import com.example.recuperatorio.Adapter.AdapterUsuario;
 import com.example.recuperatorio.Dominio.Usuario;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import kotlin.text.UStringsKt;
 
 public class UsuarioDao extends AsyncTask<String, Void, String> {
     private DataDB db;
-    private String Correo = "";
-    private String Contra = "";
+    private String Correo;
+    private String Contra;
+    Usuario U = new Usuario();
+    private Context context;
 
+    private static ArrayList<Usuario> listaUsuario = new ArrayList<Usuario>();
 
-    public UsuarioDao(String correo, String Contrasena, Context context){
+    public UsuarioDao(String correo, String Contrasena, Context c){
         Correo = correo;
         Contra = Contrasena;
+        context = c;
     }
 
    /* public String SaveUser(Usuario user){
@@ -43,15 +50,15 @@ public class UsuarioDao extends AsyncTask<String, Void, String> {
 
     }*/
 
-    public Usuario DevolverUsuario(String Correo, String Contrasena)
+  /*  public Usuario DevolverUsuario(String Correo, String Contrasena)
     {
         Usuario U = new Usuario();
         db = new DataDB();
          try {
              Statement st = db.AccesoDatos();
-             /*Class.forName("com.mysql.jdbc.Driver");
+             Class.forName("com.mysql.jdbc.Driver");
              Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
-             Statement st = con.createStatement();*/
+             Statement st = con.createStatement();
              ResultSet rs = st.executeQuery("SELECT * from usuarios when email = '" + Correo + "' , and contrasena = '" + Contrasena + "'");
 
              while(rs.next()) {
@@ -69,13 +76,10 @@ public class UsuarioDao extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
         return U;
-    }
+    }*/
 
     @Override
     protected String doInBackground(String... strings) {
-        Usuario U = new Usuario();
-        String Correo = "esteban@gmail.com";
-        String Contrasena = "123456";
         String response = "";
         //db = new DataDB();
         try {
@@ -83,8 +87,8 @@ public class UsuarioDao extends AsyncTask<String, Void, String> {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * from usuarios when email = '" + Correo + "' , and contrasena = '" + Contrasena + "'");
-            response = "asd";
+            ResultSet rs = st.executeQuery("SELECT * from usuarios when email = '" + Correo + "' , and contrasena = '" + Contra + "'");
+            response = "Exito";
             while(rs.next()) {
                 U.setId(rs.getInt("id"));
                 U.setContrasena(rs.getString("contrasena"));
@@ -93,7 +97,7 @@ public class UsuarioDao extends AsyncTask<String, Void, String> {
                 U.setIdLocalidad(rs.getInt("id_localidad"));
                 U.setNacimiento(rs.getDate("nacimiento"));
                 U.setNombre(rs.getString("nombre"));
-
+                listaUsuario.add(U);
             }
             return response;
         }
@@ -102,6 +106,13 @@ public class UsuarioDao extends AsyncTask<String, Void, String> {
             response = "Error";
         }
         return response;
+    }
+
+    @Override
+    protected void onPostExecute(String response) {
+        AdapterUsuario adapter = new AdapterUsuario(listaUsuario,context);
+
+
     }
 }
 

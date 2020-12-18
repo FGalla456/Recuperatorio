@@ -2,26 +2,23 @@ package com.example.recuperatorio.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.recuperatorio.AccesoDatos.UsuarioDao;
 import com.example.recuperatorio.R;
-import com.example.recuperatorio.Negocio.N_Usuario;
 import com.example.recuperatorio.Dominio.Usuario;
 
 public class LogIn extends AppCompatActivity {
 
     private TextView Correo;
     private TextView Contrasena;
-    private N_Usuario NU;
-    private Usuario U;
+    private TextView Correo1;
+    private TextView Contrasena1;
+    private Usuario U = new Usuario();
 
 
     @Override
@@ -30,23 +27,30 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
         Correo = findViewById(R.id.txt_Correo);
         Contrasena = findViewById(R.id.txt_Contrasena);
+        Correo1 = findViewById(R.id.lbl_Correo);
+        Contrasena1= findViewById(R.id.lbl_Contrasena);
     }
 
     public void login(View view)
     {
         if(!ValidarCampos())
         {
-            U = new Usuario();
-            NU = new N_Usuario();
-            U = NU.BuscarUsuario(Correo.getText().toString(),Contrasena.getText().toString() ,this);
-            if(U != null){
+        //    U ;
+            UsuarioDao UD = new UsuarioDao(Correo.getText().toString(),Contrasena.getText().toString(),view.getContext());
+            UD.execute();
+            if(Correo.getText().toString().equals(Correo1.getText().toString()))
+            {
+                Intent intent = new Intent(this, MenuActivity.class);
+                startActivity(intent);
+            }
+            /*if(U != null){
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
             }
             else{
                 Toast error = Toast.makeText(getApplicationContext(), "No se encontro usuario con esos datos.", Toast.LENGTH_LONG);
                 error.show();
-            }
+            }*/
         }
       /*  if(username.getText().length() > 0 && password.getText().length() > 0){
             AdminSQLite admin = new AdminSQLite(this, "BaseDatosTp3", null, 1);

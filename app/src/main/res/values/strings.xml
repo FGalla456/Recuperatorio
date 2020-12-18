@@ -21,6 +21,7 @@
     <string name="lbl_Hora">Hora</string>
     <string name="lbl_Categoria">Categoria</string>
     <string name="btn_Aceptar">Aceptar</string>
+    <string name="lbl_Busqueda">Busqueda</string>
 
     <string-array name="Localidades">
         <item>Don Torcuato</item>
