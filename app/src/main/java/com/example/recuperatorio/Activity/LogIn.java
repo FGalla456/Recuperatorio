@@ -36,10 +36,17 @@ public class LogIn extends AppCompatActivity {
     {
         if(!ValidarCampos())
         {
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-          //  U = NU.BuscarUsuario(Correo.getText().toString(),Contrasena.getText().toString());
-
+            U = new Usuario();
+            NU = new N_Usuario();
+            U = NU.BuscarUsuario(Correo.getText().toString(),Contrasena.getText().toString() ,this);
+            if(U != null){
+                Intent intent = new Intent(this, MenuActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Toast error = Toast.makeText(getApplicationContext(), "No se encontro usuario con esos datos.", Toast.LENGTH_LONG);
+                error.show();
+            }
         }
       /*  if(username.getText().length() > 0 && password.getText().length() > 0){
             AdminSQLite admin = new AdminSQLite(this, "BaseDatosTp3", null, 1);

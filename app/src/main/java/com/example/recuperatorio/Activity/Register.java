@@ -49,8 +49,8 @@ public class Register extends AppCompatActivity {
         if(!ValidarCampos()){
             if(contrasenaUser.equals(repetirContraseniaUser)){
                 Usuario user = new Usuario(nombreUser, getFecha(fechaUser) ,Integer.parseInt(dniUser),emailUser,'1',contrasenaUser);
-                userDao = new UsuarioDao();
-                userDao.SaveUser(user);
+                //userDao = new UsuarioDao();
+               // userDao.SaveUser(user);
             }
             else
             {

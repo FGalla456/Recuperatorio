@@ -20,13 +20,13 @@ public class DataDB {
     {
         Statement st = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
+            Class.forName(driver);
+            Connection con = DriverManager.getConnection(urlMySQL, user, pass);
             st = con.createStatement();
         }
         catch (Exception e)
         {
-
+            e.printStackTrace();
         }
         return st;
     }

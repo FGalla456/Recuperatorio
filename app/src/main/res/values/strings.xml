@@ -22,4 +22,11 @@
     <string name="lbl_Categoria">Categoria</string>
     <string name="btn_Aceptar">Aceptar</string>
 
+    <string-array name="Localidades">
+        <item>Don Torcuato</item>
+        <item>Pacheco</item>
+        <item>Rincon de Milberg</item>
+        <item>Nordelta</item>
+    </string-array>
+
 </resources>
