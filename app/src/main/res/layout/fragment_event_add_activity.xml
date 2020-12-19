@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ui.FragmentEventAdd">
+
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="16dp"
+    >
+
+<EditText
+    android:id="@+id/titulo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-"
+    android:maxLength="10"
+    android:hint="Título" />
+
+<EditText
+    android:id="@+id/descripcion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="number"
+    android:digits="0123456789"
+    android:maxLength="10"
+    android:hint="Descripcion"/>
+
+<EditText
+    android:id="@+id/fecha"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="number"
+    android:digits="0123456789"
+    android:maxLength="10"
+    android:hint="Fecha"/>
+
+<EditText
+    android:id="@+id/hora"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="number"
+    android:digits="0123456789"
+    android:maxLength="10"
+    android:hint="Hora"/>
+
+<EditText
+    android:id="@+id/categoria"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="text"
+    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    android:maxLength="10"
+    android:hint="Categoria"/>
+
+
+</LinearLayout>
+
+</FrameLayout>

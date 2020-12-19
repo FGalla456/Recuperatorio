@@ -3,15 +3,14 @@ package com.example.recuperatorio.Dominio;
 import java.util.Date;
 
 public class Usuario {
-    int id;
-    String nombre;
-    int dni;
-    Date nacimiento;
-    String email;
-    int idLocalidad;
-    String contrasena;
-
-    public Usuario (String nombreUsuario, Date fechaNacimiento, int DNI,
+    private Integer id;
+    private String nombre;
+    private Integer dni;
+    private String nacimiento;
+    private String email;
+    private Integer idLocalidad;
+    private String contrasena;
+    public Usuario (String nombreUsuario, String fechaNacimiento, int DNI,
                     String emailUsuario, int id_localidad ,
                     String contrasenaUsuario){
 
@@ -37,7 +36,7 @@ public class Usuario {
         return dni;
     }
 
-    public Date getNacimiento() {
+    public String getNacimiento() {
         return nacimiento;
     }
 
@@ -65,7 +64,7 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public void setNacimiento(Date nacimiento) {
+    public void setNacimiento(String nacimiento) {
         this.nacimiento = nacimiento;
     }
 

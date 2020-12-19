@@ -3,44 +3,55 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import java.util.List;
 
-import com.example.recuperatorio.AccesoDatos.UsuarioDao;
+import java.util.ArrayList;
+
 import com.example.recuperatorio.Dominio.Usuario;
 import com.example.recuperatorio.R;
 
-import java.util.List;
-
-public class AdapterUsuario extends ArrayAdapter<Usuario>  {
+public class AdapterUsuario extends BaseAdapter {
 
     //private Usuario U;
-    private UsuarioDao ud;
+    private ArrayList<Usuario> usuarios;
+    private Context context;
 
-    public AdapterUsuario(List<Usuario> u, Context context)
+    public AdapterUsuario(ArrayList<Usuario> users, Context context)
     {
-        super(context, R.layout.activity_log_in,u);
+        this.context = context;
+        this.usuarios = users;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public int getCount() {
+        return this.usuarios.size();
+    }
 
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View item = inflater.inflate(R.layout.activity_log_in, null);
+    @Override
+    public Object getItem(int i) {
+        return this.usuarios.get(i);
+    }
 
-        TextView tvCorreo = (TextView) item.findViewById(R.id.lbl_Correo);
-        TextView tvContrasena = (TextView) item.findViewById(R.id.lbl_Contrasena);
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
 
-        tvCorreo.setText(getItem(position).getEmail()+"");
-        tvContrasena.setText(getItem(position).getContrasena()+"");
+    @Override
+    public View getView(int i, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = convertView;
+        if (convertView == null){
+            view = inflater.inflate(R.layout.activity_log_in, null);
+        }
 
-        return item;
+        TextView tvCorreo = view.findViewById(R.id.txt_Correo);
+        TextView tvContrasena =  view.findViewById(R.id.txt_Contrasena);
+
+        tvCorreo.setText(getItem(i).toString());
+        tvContrasena.setText(getItem(i).toString());
+
+        return view;
     }
 }

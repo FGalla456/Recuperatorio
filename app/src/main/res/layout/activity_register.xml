@@ -119,8 +119,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/spinner_border"
-                android:entries="@array/Localidades"
+
                 android:padding="5dp" />
 
             <EditText

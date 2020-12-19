@@ -22,6 +22,10 @@
     <string name="lbl_Categoria">Categoria</string>
     <string name="btn_Aceptar">Aceptar</string>
     <string name="lbl_Busqueda">Busqueda</string>
+    <string name="navigation_drawler_close">Cerrar Navegacion</string>
+    <string name="navigation_drawler_open">Abrir Navegacion</string>
+    <string name="logout">Cerrar Sesion</string>
+
 
     <string-array name="Localidades">
         <item>Don Torcuato</item>

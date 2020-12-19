@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.recuperatorio.AccesoDatos.UsuarioDao;
+import com.example.recuperatorio.AccesoDatos.ObtenerUsuario;
 import com.example.recuperatorio.R;
 import com.example.recuperatorio.Dominio.Usuario;
 
@@ -27,21 +27,29 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_log_in);
         Correo = findViewById(R.id.txt_Correo);
         Contrasena = findViewById(R.id.txt_Contrasena);
-        Correo1 = findViewById(R.id.lbl_Correo);
-        Contrasena1= findViewById(R.id.lbl_Contrasena);
+        /*Correo1 = findViewById(R.id.lbl_Correo);
+        Contrasena1= findViewById(R.id.lbl_Contrasena);*/
     }
 
     public void login(View view)
     {
         if(!ValidarCampos())
         {
-        //    U ;
-            UsuarioDao UD = new UsuarioDao(Correo.getText().toString(),Contrasena.getText().toString(),view.getContext());
-            UD.execute();
-            if(Correo.getText().toString().equals(Correo1.getText().toString()))
+            if(Correo.getText().toString() != "" && Contrasena.getText().toString() != "")
             {
-                Intent intent = new Intent(this, MenuActivity.class);
-                startActivity(intent);
+                U.setEmail(Correo.getText().toString());
+                U.setContrasena(Contrasena.getText().toString());
+                try {
+                ObtenerUsuario task = new ObtenerUsuario(U, view.getContext());
+                task.execute();
+                    Intent intent = new Intent(this, MenuActivity.class);
+                    startActivity(intent);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(this ,"Error al Iniciar sesion",Toast.LENGTH_SHORT).show();
+                }
+
             }
             /*if(U != null){
                 Intent intent = new Intent(this, MenuActivity.class);
