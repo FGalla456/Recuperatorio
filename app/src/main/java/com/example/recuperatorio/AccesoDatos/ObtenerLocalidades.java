@@ -45,7 +45,7 @@ public class ObtenerLocalidades extends AsyncTask<String, Void, String> {
             Localidad loc;
             while(rs.next()) {
                 loc = new Localidad();
-               /* loc.setId(rs.getInt("id"));*/
+                loc.setId(rs.getInt("id"));
                 loc.setNombre(rs.getString("localidad"));
                 listaLocalidades.add(loc);
             }
@@ -63,7 +63,6 @@ public class ObtenerLocalidades extends AsyncTask<String, Void, String> {
         if(response.equals("Conexion exitosa")){
             adapterSpinner = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listaLocalidades);
             spLocalidad.setAdapter(adapterSpinner);
-            AdapterLocalidad adapter = new AdapterLocalidad(context , spLocalidad);
         }
     }
 }

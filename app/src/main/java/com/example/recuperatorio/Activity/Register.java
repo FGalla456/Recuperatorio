@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.recuperatorio.AccesoDatos.InsertarUsuario;
 import com.example.recuperatorio.AccesoDatos.ObtenerLocalidades;
+import com.example.recuperatorio.Dominio.Localidad;
 import com.example.recuperatorio.Dominio.Usuario;
 import com.example.recuperatorio.R;
 
@@ -34,9 +35,8 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        view = this.getWindow().getDecorView().findViewById(android.R.id.content);
         localidades = findViewById(R.id.cbLocalidad);
-        ObtenerLocalidades task = new ObtenerLocalidades(localidades, view.getContext());
+        ObtenerLocalidades task = new ObtenerLocalidades(localidades, this);
         task.execute();
         nombre =  findViewById(R.id.txtNombre);
         email =  findViewById(R.id.txt_Correo);
@@ -113,6 +113,7 @@ public class Register extends AppCompatActivity {
         String idLocalidad = nombre.getText().toString();
         String contrasenaUser = contrasena.getText().toString();
         String repetirContraseniaUser = contraseniaRepeat.getText().toString();
+        Localidad LocalidadSelec = (Localidad) localidades.getSelectedItem();
         if(!ValidarCampos()){
             if(contrasenaUser.equals(repetirContraseniaUser)){
                 Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser),emailUser,'1',contrasenaUser);
