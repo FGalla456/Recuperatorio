@@ -66,6 +66,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         navEmail.setText(Correo);
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragments, new FragmentEventAdd()).commit();
         getSupportActionBar().setSubtitle("Agregar Evento");
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override

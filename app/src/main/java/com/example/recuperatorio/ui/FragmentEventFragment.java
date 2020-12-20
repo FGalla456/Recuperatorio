@@ -80,6 +80,7 @@ public class FragmentEventFragment extends Fragment {
         {
             BuscarEvento task = new BuscarEvento(view.getContext() , Texto.getText().toString());
             task.execute();
+            Texto.setText("");
         }
     }
 }

@@ -116,7 +116,6 @@ public class FragmentEventAdd extends Fragment {
                 }
             }
 
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -176,7 +175,6 @@ public class FragmentEventAdd extends Fragment {
 
                 }
             }
-
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
