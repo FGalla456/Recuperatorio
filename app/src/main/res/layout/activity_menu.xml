@@ -18,37 +18,15 @@
             android:layout_width="match_parent"
             android:theme="@style/AppTheme.NoActionBar">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                android:theme="@style/AppTheme.NoActionBar"
-                app:titleTextColor="@color/white"
-                app:subtitleTextColor="@color/white"
-                app:navigationIcon="?homeAsUpIndicator"
-                app:popupTheme="@style/AppTheme.NoActionBar" />
-
         </com.google.android.material.appbar.AppBarLayout>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment_container" >
+            android:id="@+id/fragment_register_container" >
 
             <include layout="@layout/content_main" />
         </FrameLayout>
 
     </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:id="@+id/nav_view"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/panel_menu"
-        >
-
-    </com.google.android.material.navigation.NavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

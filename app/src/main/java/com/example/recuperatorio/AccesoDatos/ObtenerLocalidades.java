@@ -1,13 +1,15 @@
 package com.example.recuperatorio.AccesoDatos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.recuperatorio.Adapter.AdapterCategoria;
 import com.example.recuperatorio.Adapter.AdapterLocalidad;
 import com.example.recuperatorio.Dominio.Localidad;
+import com.example.recuperatorio.R;
+
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class ObtenerLocalidades extends AsyncTask<String, Void, String> {
 
-    private ArrayAdapter<Localidad> adapterSpinnerLogin, adapterSpinner;
+    private ArrayAdapter<Localidad> adapterSpinner;
     private Spinner spLocalidadLogin, spLocalidad;
     private Context context;
     private DataDB db;
@@ -38,7 +40,9 @@ public class ObtenerLocalidades extends AsyncTask<String, Void, String> {
             listaLocalidades.removeAll(listaLocalidades);
         }
         try {
-            Statement st = db.AccesoDatos();
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(DataDB.urlMySQL, DataDB.user, DataDB.pass);
+            Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM localidades");
             result2 = " ";
 
@@ -61,8 +65,8 @@ public class ObtenerLocalidades extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String response) {
         if(response.equals("Conexion exitosa")){
-            adapterSpinner = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listaLocalidades);
-            spLocalidad.setAdapter(adapterSpinner);
+            AdapterLocalidad adploc = new AdapterLocalidad((Activity) context, R.layout.dropdown_value, listaLocalidades);
+            spLocalidad.setAdapter(adploc);
         }
     }
 }

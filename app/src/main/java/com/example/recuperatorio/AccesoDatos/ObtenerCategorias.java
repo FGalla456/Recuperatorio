@@ -1,13 +1,15 @@
 package com.example.recuperatorio.AccesoDatos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.recuperatorio.Adapter.AdapterCategoria;
 import com.example.recuperatorio.Dominio.Categoria;
-import com.example.recuperatorio.Dominio.Localidad;
+import com.example.recuperatorio.R;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -59,8 +61,8 @@ public class ObtenerCategorias extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String response) {
         if(response.equals("Conexion exitosa")){
-            adapterSpinner = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listaCategorias);
-            spCategoria.setAdapter(adapterSpinner);
+            AdapterCategoria adploc = new AdapterCategoria((Activity) context, R.layout.dropdown_value, listaCategorias);
+            spCategoria.setAdapter(adploc);
         }
     }
 

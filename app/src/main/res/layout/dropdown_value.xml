@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <TextView
+        android:id="@+id/item_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#757474"
+        android:textSize="16dp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    />

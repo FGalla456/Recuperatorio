@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.recuperatorio.Adapter.EventoAdapter;
 import com.example.recuperatorio.Dominio.Categoria;
 import com.example.recuperatorio.Dominio.Evento;
 
@@ -18,6 +19,7 @@ public class BuscarEvento extends AsyncTask<String, Void, String> {
     private DataDB db;
     private String titulo;
     private static ArrayList<Evento> listaEvento = new ArrayList<Evento>();
+    private ListView lvEventos;
 
     public BuscarEvento(Context ct, String title)
     {
@@ -57,6 +59,8 @@ public class BuscarEvento extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String response) {
         if (response.equals("Conexion exitosa"))
         {
+            EventoAdapter adapter = new EventoAdapter(context, listaEvento);
+            lvEventos.setAdapter(adapter);
             Toast.makeText(context ,"El Evento se cargó exitosamente",Toast.LENGTH_LONG).show();
         }
     }

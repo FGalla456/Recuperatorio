@@ -111,15 +111,15 @@
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/cbLocalidad"
-                android:layout_width="350dp"
+                android:id="@+id/sp_Localidad"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                android:padding="5dp" />
+                android:padding="5dp"
+                />
 
             <EditText
                 android:id="@+id/txt_Contrasena"
