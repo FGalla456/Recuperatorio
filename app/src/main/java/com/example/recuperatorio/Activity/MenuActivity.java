@@ -45,48 +45,27 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //SharedPreferences preferences = getSharedPreferences("usuario", Context.MODE_PRIVATE);
-        idUser = 5;//preferences.getInt("id", -1);
-        if(idUser < 0){
-            Intent menu = new Intent(this, LogIn.class);
-            startActivity(menu);
-        }else {
-            setContentView(R.layout.activity_menuprincipal);
-            drawlayout = findViewById(R.id.drawer_layout);
-            navigationView = findViewById(R.id.nav_view);
-            toolbar = findViewById(R.id.toolbar);
-
-
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setSubtitle("Menu Principal");
-            navigationView.bringToFront();
-            toggle = new ActionBarDrawerToggle(this, drawlayout, toolbar, R.string.navigation_drawler_open, R.string.navigation_drawler_close);
-            drawlayout.addDrawerListener(toggle);
-            toggle.syncState();
-            navigationView.setNavigationItemSelectedListener(this);
-
-            //Creación del Dialog "Mi Cuenta"
-            builder = new AlertDialog.Builder(MenuActivity.this);
-            dialogAccount = builder.create();
-            dialogAccount.setTitle("Mi cuenta");
-
-
-
-           /* if (userData.moveToFirst()) {
-                dialogAccount.setMessage("Nombre: " + userData.getString(0) + " \nEmail: " + userData.getString(1));
-
-                //Nombre e Email en Navigation Header
-                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                View headerView = navigationView.getHeaderView(0);
-                TextView navUsername = (TextView) headerView.findViewById(R.id.header_user);
-                TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
-                navUsername.setText(userData.getString(0));
-                navEmail.setText(userData.getString(0).toLowerCase().replace(" ", "") + "@parking.com");
-            } else {
-                dialogAccount.setMessage("Ha ocurrido un error.");
-            }
-            */
-        }
+        Intent intent = getIntent();
+        String Nombre = intent.getStringExtra("Nombre");
+        String Correo = intent.getStringExtra("Correo");
+        setContentView(R.layout.activity_menuprincipal);
+        drawlayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        navigationView.bringToFront();
+        toggle = new ActionBarDrawerToggle(this, drawlayout, toolbar, R.string.navigation_drawler_open, R.string.navigation_drawler_close);
+        drawlayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.header_user);
+        TextView navEmail = (TextView) headerView.findViewById(R.id.header_email);
+        navUsername.setText(Nombre);
+        navEmail.setText(Correo);
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragments, new FragmentEventAdd()).commit();
+        getSupportActionBar().setSubtitle("Agregar Evento");
     }
 
     @Override
@@ -94,10 +73,12 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_add_events:
                 getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragments, new FragmentEventAdd()).commit();
+                getSupportActionBar().setSubtitle("Agregar Evento");
                 drawlayout.close();
                 break;
             case R.id.nav_list_events:
                 getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragments, new FragmentEventFragment()).commit();
+                getSupportActionBar().setSubtitle("Mis Eventos");
                 drawlayout.close();
                 break;
             case R.id.nav_logout:
@@ -116,14 +97,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-    /*
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }*/
 
     private void logout() {
         SharedPreferences preferences = getSharedPreferences("usuario", Context.MODE_PRIVATE);

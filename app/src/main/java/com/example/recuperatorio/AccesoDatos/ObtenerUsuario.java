@@ -8,30 +8,34 @@ import android.widget.Toast;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+
+import com.example.recuperatorio.Activity.Comunicacion;
+import com.example.recuperatorio.Activity.MenuActivity;
 import com.example.recuperatorio.Dominio.Usuario;
 
 import java.util.ArrayList;
 
 public class ObtenerUsuario extends AsyncTask<String, Void, String> {
+    private Comunicacion comunication;
 
     private Usuario user;
     private Context context;
     private DataDB db;
-    private Usuario U;
+    private Usuario U = new Usuario();
     private String response;
 
-    public ObtenerUsuario(Usuario u, Context ct)
+    public ObtenerUsuario(Usuario u, Context ct , Comunicacion c)
     {
         user = u;
         context = ct;
+        this.comunication = c;
     }
 
     @Override
     protected String doInBackground(String... strings) {
-        U = new Usuario();
         response="";
         db = new DataDB();
-        String consulta = "SELECT * from usuarios where email = '" + user.getEmail() + "' , and contrasena = '" + user.getContrasena() + "'";
+        String consulta = "SELECT * from usuarios where email = '" + user.getEmail() + "' and contrasena = '" + user.getContrasena() + "'";
         try {
             Statement st = db.AccesoDatos();
             ResultSet rs = st.executeQuery(consulta);
@@ -44,8 +48,8 @@ public class ObtenerUsuario extends AsyncTask<String, Void, String> {
                 U.setIdLocalidad(rs.getInt("id_localidad"));
                 U.setNacimiento(rs.getString("nacimiento"));
                 U.setNombre(rs.getString("nombre"));
+                response = "Conexion exitosa";
             }
-            response = "Conexion exitosa";
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -58,13 +62,11 @@ public class ObtenerUsuario extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String response) {
         if (response.equals("Conexion exitosa")){
-            user = U;
-            if(user == null){
-                Toast.makeText(context ," Usuario no existente.",Toast.LENGTH_SHORT).show();
-            }
+            this.comunication.showMessage("Datos Correctos");
+            this.comunication.lanzarActividad(MenuActivity.class , U);
         }
         else{
-            Toast.makeText(context ," Usuario no existente.",Toast.LENGTH_SHORT).show();
+            this.comunication.showMessage("Datos Incorrectos");
         }
     }
 

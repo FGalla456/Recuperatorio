@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class BuscarEvento extends AsyncTask<String, Void, String> {
+public class BuscarEvento extends AsyncTask<String, Void, String>{
 
     private Context context;
     private DataDB db;

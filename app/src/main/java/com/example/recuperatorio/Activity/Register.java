@@ -2,6 +2,7 @@ package com.example.recuperatorio.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ public class Register extends AppCompatActivity {
     private Spinner spLocalidades;
     private View view;
     private String stringDate = "";
+    Boolean Error = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,69 +116,74 @@ public class Register extends AppCompatActivity {
         String contrasenaUser = contrasena.getText().toString();
         String repetirContraseniaUser = contraseniaRepeat.getText().toString();
         Localidad LocalidadSelec = (Localidad) spLocalidades.getSelectedItem();
-        if(!ValidarCampos()){
-            if(contrasenaUser.equals(repetirContraseniaUser)){
+        ValidarCampos();
+        if(!Error){
                 Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser),emailUser,'1',contrasenaUser);
                 InsertarUsuario task = new InsertarUsuario(user, view.getContext());
                 task.execute();
-            }
-            else
-            {
-                    Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_LONG);
+                Intent intent = new Intent(this, LogIn.class);
+                startActivity(intent);
+                Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_LONG).show();
             }
         }
-    }
 
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    private boolean ValidarCampos()
+    private void ValidarCampos()
     {
-        boolean Error = false;
         String DatosError = "";
         if(nombre.getText().length() < 1)
         {
-            DatosError += "-Nombre Invalido";
-            Error = true;
+            DatosError = SaltoLinea(DatosError, "-Nombre Invalido");
         }
-        SaltoLinea(DatosError);
-        if(dni.getText().length() < 3)
+        if(dni.getText().length() == 0)
         {
-            DatosError += "-DNI Invalido";
-            Error = true;
+            DatosError = SaltoLinea(DatosError, "-Ingrese el DNI");
         }
-        SaltoLinea(DatosError);
-        if(email.getText().length() < 2)
+        else{
+            if(dni.getText().length() != 8){
+            DatosError = SaltoLinea(DatosError, "-DNI Invalido");
+            }
+        }
+        if(email.getText().length() == 0)
         {
-            DatosError += "-Correo Invalido";
-            Error = true;
+            DatosError = SaltoLinea(DatosError, "-Ingrese un Correo");
         }
         else{
             if(!isEmailValid(email.getText().toString())){
-                DatosError += "-Email Invalido";
-                Error = true;
+                DatosError = SaltoLinea(DatosError, "-Correo Invalido");
             }
         }
-        SaltoLinea(DatosError);
-        if(contrasena.getText().length() < 6)
+        if(contrasena.getText().length() == 0)
         {
-            DatosError += " -Contraseña Invalida";
-            Error = true;
+            DatosError = SaltoLinea(DatosError, "-Contraseña Vacia");
+        }
+        else {
+            if(contrasena.getText().length() > 6){
+                DatosError = SaltoLinea(DatosError, "Ingrese una Contraseña con al menos 6 caractere");
+            }
+        }
+        if(contrasena.getText().equals(contraseniaRepeat.getText())) {
+
+            DatosError = SaltoLinea(DatosError, "las Contraseñas no coinciden");
         }
         if(Error){
             Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
+            Error = false;
         }
-        return  Error;
     }
 
-    private String SaltoLinea(String texto)
+    private String SaltoLinea(String Datos, String texto)
     {
-        if(texto != "")
+        Error = true;
+        if(Datos != "")
         {
-            texto += "\n";
+            Datos += "\n";
         }
-        return texto;
+        Datos += texto;
+        return Datos;
     }
 
 }

@@ -12,13 +12,15 @@ import com.example.recuperatorio.AccesoDatos.ObtenerUsuario;
 import com.example.recuperatorio.R;
 import com.example.recuperatorio.Dominio.Usuario;
 
-public class LogIn extends AppCompatActivity {
+public class LogIn extends AppCompatActivity implements  Comunicacion{
 
     private TextView Correo;
     private TextView Contrasena;
     private TextView Correo1;
     private TextView Contrasena1;
     private Usuario U = new Usuario();
+    private String NombreUsuario;
+    private String CorreoUsuario;
 
 
     @Override
@@ -31,6 +33,10 @@ public class LogIn extends AppCompatActivity {
         Contrasena1= findViewById(R.id.lbl_Contrasena);*/
     }
 
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
     public void login(View view)
     {
         if(!ValidarCampos())
@@ -40,10 +46,10 @@ public class LogIn extends AppCompatActivity {
                 U.setEmail(Correo.getText().toString());
                 U.setContrasena(Contrasena.getText().toString());
                 try {
-                ObtenerUsuario task = new ObtenerUsuario(U, view.getContext());
+                ObtenerUsuario task = new ObtenerUsuario(U, view.getContext(), LogIn.this);
                 task.execute();
-                    Intent intent = new Intent(this, MenuActivity.class);
-                    startActivity(intent);
+                    /*Intent intent = new Intent(this, MenuActivity.class);
+                    startActivity(intent);*/
                 }
                 catch (Exception e){
                     e.printStackTrace();
@@ -51,44 +57,7 @@ public class LogIn extends AppCompatActivity {
                 }
 
             }
-            /*if(U != null){
-                Intent intent = new Intent(this, MenuActivity.class);
-                startActivity(intent);
-            }
-            else{
-                Toast error = Toast.makeText(getApplicationContext(), "No se encontro usuario con esos datos.", Toast.LENGTH_LONG);
-                error.show();
-            }*/
         }
-      /*  if(username.getText().length() > 0 && password.getText().length() > 0){
-            AdminSQLite admin = new AdminSQLite(this, "BaseDatosTp3", null, 1);
-            SQLiteDatabase BasedeDatos = admin.getWritableDatabase();
-
-            String Username = username.getText().toString();
-            String Password = password.getText().toString();
-            Cursor fila = BasedeDatos.rawQuery("select nombre from usuarios where nombre ='"+ Username +"'" , null);
-            if(fila.moveToFirst()){
-                Cursor fila2 = BasedeDatos.rawQuery("select id from usuarios where contrasenia ='" + Password +"' and nombre = '"+Username+"'", null);
-                if(fila2.moveToFirst()){
-                    BasedeDatos.close();
-                    SharedPreferences preferences = getSharedPreferences("usuario", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putInt("id", Integer.parseInt(fila2.getString(0)));
-                    editor.commit();
-                    Intent menu = new Intent(this, MenuActivity.class);
-                    menu.putExtra("id_user", fila2.getString(0));
-                    startActivity(menu);
-                }else{
-                    alertErrorPass.show();
-                }
-            }else{
-                alertErrorUser.show();
-            }
-        }else{
-            if(!alertEmpty.getView().isShown()){
-                alertEmpty.show();
-            }
-        }*/
     }
 
     public void Redirigir(View view)
@@ -108,7 +77,7 @@ public class LogIn extends AppCompatActivity {
         }
         else
         {
-            if(!Correo.getText().toString().contains("@"))
+            if(!isEmailValid(Correo.getText().toString()))
             {
                 DatosError += "- Correo Invalido";
                 Error = true;
@@ -132,5 +101,18 @@ public class LogIn extends AppCompatActivity {
             Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
         }
         return  Error;
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        Toast.makeText(this , msg , Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void lanzarActividad(Class<?> tipoActividad , Usuario U) {
+        Intent intent = new Intent(this , tipoActividad);
+        intent.putExtra("Correo", U.getEmail());
+        intent.putExtra("Nombre", U.getNombre());
+        startActivity(intent);
     }
 }
