@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.recuperatorio.Adapter.AdapterCategoria;
+import com.example.recuperatorio.Adapter.AdapterLocalidad;
 import com.example.recuperatorio.Dominio.Localidad;
 
 import java.sql.Connection;
@@ -61,6 +63,7 @@ public class ObtenerLocalidades extends AsyncTask<String, Void, String> {
         if(response.equals("Conexion exitosa")){
             adapterSpinner = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listaLocalidades);
             spLocalidad.setAdapter(adapterSpinner);
+            AdapterLocalidad adapter = new AdapterLocalidad(context , spLocalidad);
         }
     }
 }

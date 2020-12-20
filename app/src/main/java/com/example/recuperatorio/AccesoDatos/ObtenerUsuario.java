@@ -50,7 +50,7 @@ public class ObtenerUsuario extends AsyncTask<String, Void, String> {
         catch(Exception e) {
             e.printStackTrace();
             response = "Eror, no se encontro un usuario";
-            
+
         }
         return response;
     }

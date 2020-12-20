@@ -2,8 +2,11 @@ package com.example.recuperatorio.AccesoDatos;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.recuperatorio.Adapter.AdapterCategoria;
+import com.example.recuperatorio.Adapter.EventoAdapter;
 import com.example.recuperatorio.Dominio.Categoria;
 import com.example.recuperatorio.Dominio.Evento;
 import com.example.recuperatorio.Dominio.Usuario;
@@ -20,11 +23,13 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
     private Evento even;
     private String response;
     private static ArrayList<Evento> listaEventos = new ArrayList<Evento>();
+    private ListView lvEventos;
 
-    public ObtenerEventos(Evento e, Context ct)
+    public ObtenerEventos(ListView le, Evento e, Context ct)
     {
         event = e;
         context = ct;
+        lvEventos = le;
     }
 
     @Override
@@ -62,6 +67,8 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String response) {
         if (response.equals("Conexion exitosa")){
+            EventoAdapter adapter = new EventoAdapter(context, listaEventos);
+            lvEventos.setAdapter(adapter);
             event = even;
             if(event == null){
                 Toast.makeText(context ," No hay Eventos cargados.",Toast.LENGTH_SHORT).show();
