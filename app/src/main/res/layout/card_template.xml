@@ -55,8 +55,7 @@
                 android:id="@+id/txt_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                tools:visibility="visible" />
+                android:gravity="center" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -24,18 +24,20 @@ public class BuscarEvento extends AsyncTask<String, Void, String>{
     private ListView lvEventos;
 
 
-    public BuscarEvento(Context ct, String title, Comunicacion c)
+    public BuscarEvento(ListView le, Context ct, String title, Comunicacion c)
     {
         context = ct;
         titulo = title;
+        lvEventos = le;
         this.comunication = c;
     }
 
     @Override
     protected String doInBackground(String... strings) {
         String response = "";
+        Categoria Cat;
         db = new DataDB();
-        String consultaSQL = "SELECTO * FROM eventos where titulo = '" +titulo+"'";
+        String consultaSQL = "SELECT * FROM eventos inner join categorias c on id_categoria = c.id where titulo = '" +titulo+"'";
         try {
             Statement st = db.AccesoDatos();
             ResultSet rs = st.executeQuery(consultaSQL);
@@ -44,10 +46,13 @@ public class BuscarEvento extends AsyncTask<String, Void, String>{
             while(rs.next()) {
                 ev = new Evento();
                 ev.setId(rs.getInt("id"));
+                ev.setTitulo(rs.getString("titulo"));
                 ev.setDescription(rs.getString("descripcion"));
                 ev.setFecha(rs.getString("fecha"));
                 ev.setHora(rs.getString("hora"));
-                ev.setIdCategoria(rs.getInt("categoria"));
+                ev.setIdCategoria(rs.getInt("id_categoria"));
+                Cat = new Categoria(rs.getInt(7),rs.getString("categoria"));
+                ev.setCat(Cat);
                 listaEvento.add(ev);
                 response = "Conexion exitosa";
             }

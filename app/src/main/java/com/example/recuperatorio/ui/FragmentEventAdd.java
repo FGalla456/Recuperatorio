@@ -25,7 +25,9 @@ import com.example.recuperatorio.AccesoDatos.ObtenerCategorias;
 import com.example.recuperatorio.AccesoDatos.ObtenerEventos;
 import com.example.recuperatorio.Activity.Register;
 import com.example.recuperatorio.Adapter.EventoAdapter;
+import com.example.recuperatorio.Dominio.Categoria;
 import com.example.recuperatorio.Dominio.Evento;
+import com.example.recuperatorio.Dominio.Localidad;
 import com.example.recuperatorio.Interface.Registrarse;
 import com.example.recuperatorio.R;
 import com.example.recuperatorio.ui.FragmentEventAddFragment;
@@ -43,8 +45,9 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
     private TextView categoria;
     private Evento event;
     private String stringDate = "";
+    private String stringTime = "";
     private Button btnAgregar;
-    private Spinner categorias;
+    private Spinner spCategoria;
     private ProgressBar pb;
 
     @Nullable
@@ -56,9 +59,9 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
         fecha = view.findViewById(R.id.fecha);
         hora = view.findViewById(R.id.hora);
         btnAgregar = view.findViewById(R.id.add_event);
-        categorias = view.findViewById(R.id.categoria);
+        spCategoria = view.findViewById(R.id.categoria);
         pb = view.findViewById(R.id.progressBar1);
-        ObtenerCategorias task = new ObtenerCategorias(categorias, view.getContext());
+        ObtenerCategorias task = new ObtenerCategorias(spCategoria, view.getContext());
         task.execute();
 
         btnAgregar.setOnClickListener(new View.OnClickListener(){
@@ -103,10 +106,10 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
                         minute = (minute > 59)  ? 59 : (minute < 1) ? 1 : minute;
 
                         clean = String.format("%02d%02d%02d", hour, minute, second);
-                        stringDate = String.format("%02d%02d%02d", hour, minute, second);
-                        stringDate = String.format("%s:%s:%s", stringDate.substring(0, 2),
-                                stringDate.substring(2, 4),
-                                stringDate.substring(4, 6));
+                        stringTime = String.format("%02d%02d%02d", hour, minute, second);
+                        stringTime = String.format("%s:%s:%s", stringTime.substring(0, 2),
+                                stringTime.substring(2, 4),
+                                stringTime.substring(4, 6));
                     }
 
                     clean = String.format("%s:%s:%s", clean.substring(0, 2),
@@ -243,12 +246,13 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
         if(!validarCampos()) {
             btnAgregar.setEnabled(false);
             pb.setVisibility(view.VISIBLE);
+            Categoria CategoriaSelec = (Categoria) spCategoria.getSelectedItem();
             event = new Evento();
             event.setTitulo(titulo.getText().toString());
             event.setDescription(descripcion.getText().toString());
             event.setFecha(stringDate.replace('/','-') );
-            event.setHora(hora.getText().toString());
-            event.setIdCategoria(1);
+            event.setHora(stringTime);
+            event.setIdCategoria(CategoriaSelec.getId());
             InsertarEvento task = new InsertarEvento(event, view.getContext() , FragmentEventAdd.this);
             task.execute();
         }
@@ -258,6 +262,7 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
     public void showMessage(String msg) {
         btnAgregar.setEnabled(true);
         pb.setVisibility(view.INVISIBLE);
+        Toast.makeText(view.getContext() , msg , Toast.LENGTH_SHORT).show();
     }
 
     @Override

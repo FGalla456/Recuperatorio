@@ -36,10 +36,9 @@ public class ObtenerUsuario extends AsyncTask<String, Void, String> {
             ResultSet rs = st.executeQuery(consulta);
 
             while(rs.next()) {
-                U.setId(rs.getInt("id"));
+                U.setEmail(rs.getString("email"));
                 U.setContrasena(rs.getString("contrasena"));
                 U.setDni(rs.getInt("dni"));
-                U.setEmail(rs.getString("email"));
                 U.setIdLocalidad(rs.getInt("id_localidad"));
                 U.setNacimiento(rs.getString("nacimiento"));
                 U.setNombre(rs.getString("nombre"));

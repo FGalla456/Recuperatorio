@@ -85,7 +85,7 @@ public class FragmentEventFragment extends Fragment implements Comunicacion {
         }
         else
         {
-            BuscarEvento task = new BuscarEvento(view.getContext() , Texto.getText().toString(),FragmentEventFragment.this);
+            BuscarEvento task = new BuscarEvento(lvEventos, view.getContext() , Texto.getText().toString(),FragmentEventFragment.this);
             task.execute();
             Texto.setText("");
         }
@@ -95,6 +95,7 @@ public class FragmentEventFragment extends Fragment implements Comunicacion {
     public void showMessage(String msg) {
         btnAceptar.setEnabled(true);
         pb.setVisibility(view.INVISIBLE);
+        Toast.makeText(view.getContext() , msg , Toast.LENGTH_SHORT).show();
     }
 
     @Override

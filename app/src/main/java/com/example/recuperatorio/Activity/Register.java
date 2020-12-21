@@ -130,7 +130,7 @@ public class Register extends AppCompatActivity implements Registrarse {
             pb.setVisibility(view.VISIBLE);
             btnRegister.setEnabled(false);
             btnReturn.setEnabled(false);
-            Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser), emailUser, LocalidadSelec.getId(),contrasenaUser);
+            Usuario user = new Usuario(emailUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser), nombreUser , LocalidadSelec.getId(),contrasenaUser);
             InsertarUsuario task = new InsertarUsuario(user, view.getContext(), Register.this);
             task.execute();
             }
@@ -175,8 +175,8 @@ public class Register extends AppCompatActivity implements Registrarse {
             DatosError = SaltoLinea(DatosError, "-Contraseña Vacia");
         }
         else {
-            if(contrasena.getText().length() > 6){
-                DatosError = SaltoLinea(DatosError, "Ingrese una Contraseña con al menos 6 caractere");
+            if(contrasena.getText().length() < 6){
+                DatosError = SaltoLinea(DatosError, "Ingrese una Contraseña con al menos 6 caracteres");
             }
         }
         if(contrasena.getText().equals(contraseniaRepeat.getText())) {
