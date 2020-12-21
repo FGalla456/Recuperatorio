@@ -75,6 +75,7 @@ public class FragmentEventFragment extends Fragment implements Comunicacion {
     {
         btnAceptar.setEnabled(false);
         pb.setVisibility(view.VISIBLE);
+        lvEventos.setAdapter(null);
         if(Texto.getText().length() == 0)
         {
             ev = new Evento();

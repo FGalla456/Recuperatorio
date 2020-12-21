@@ -23,6 +23,7 @@ public class LogIn extends AppCompatActivity implements Comunicacion {
     private ProgressBar pb;
     private TextView registrarse;
     private Button btnIniciar;
+    private View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class LogIn extends AppCompatActivity implements Comunicacion {
     {
         if(!ValidarCampos())
         {
+            v = view;
             U.setEmail(Correo.getText().toString());
             U.setContrasena(Contrasena.getText().toString());
             pb.setVisibility(view.VISIBLE);
@@ -106,6 +108,7 @@ public class LogIn extends AppCompatActivity implements Comunicacion {
     public void showMessage(String msg) {
         btnIniciar.setEnabled(true);
         registrarse.setEnabled(true);
+        pb.setVisibility(v.INVISIBLE);
         Toast.makeText(this , msg , Toast.LENGTH_SHORT).show();
     }
 
