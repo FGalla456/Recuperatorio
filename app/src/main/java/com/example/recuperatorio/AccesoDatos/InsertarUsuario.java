@@ -7,20 +7,26 @@ import android.widget.Toast;
 import java.sql.Date;
 import java.sql.Statement;
 
+import com.example.recuperatorio.Activity.LogIn;
+import com.example.recuperatorio.Activity.MenuActivity;
 import com.example.recuperatorio.Dominio.Usuario;
+import com.example.recuperatorio.Interface.Comunicacion;
+import com.example.recuperatorio.Interface.Registrarse;
 
 import java.util.ArrayList;
 
 public class InsertarUsuario extends AsyncTask<String, Void, String> {
 
+    private Registrarse register;
     private Usuario user;
     private Context context;
     private DataDB db;
 
-    public InsertarUsuario(Usuario u, Context ct)
+    public InsertarUsuario(Usuario u, Context ct, Registrarse r)
     {
         user = u;
         context = ct;
+        this.register = r;
     }
 
     @Override
@@ -45,10 +51,12 @@ public class InsertarUsuario extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        if (response.equals("Conexion exitosa"))
-        {
-            Toast.makeText(context ,"El Usuario se cargó exitosamente",Toast.LENGTH_LONG).show();
+        if (response.equals("Conexion exitosa")){
+            this.register.showMessage("Usuario registrado correctamente");
+            this.register.lanzarActividad(LogIn.class);
         }
-
+        else{
+            this.register.showMessage("Datos Incorrectos");
+        }
     }
 }

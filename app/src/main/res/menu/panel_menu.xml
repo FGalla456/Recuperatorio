@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_add_events"
-            android:icon="@drawable/photography_icon"
+            android:icon="@drawable/ic_add"
             android:title="@string/agregar_evento" />
 
         <item android:id="@+id/nav_list_events"
-            android:icon="@drawable/photography_icon"
+            android:icon="@drawable/ic_menu_gallery"
             android:title="@string/mis_eventos" />
 
         <item android:id="@+id/nav_logout"
-            android:icon="@drawable/photography_icon"
+            android:icon="@drawable/ic_close"
             android:title="@string/logout" />
 
     </group>

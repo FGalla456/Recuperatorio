@@ -45,6 +45,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_Busqueda" />
 
+    <include layout="@layout/progress_bar"></include>
+
     <ListView
         android:id="@+id/lvEventos"
         android:layout_width="match_parent"

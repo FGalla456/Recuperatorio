@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +18,12 @@ import com.example.recuperatorio.AccesoDatos.InsertarUsuario;
 import com.example.recuperatorio.AccesoDatos.ObtenerLocalidades;
 import com.example.recuperatorio.Dominio.Localidad;
 import com.example.recuperatorio.Dominio.Usuario;
+import com.example.recuperatorio.Interface.Registrarse;
 import com.example.recuperatorio.R;
 
 import java.util.Calendar;
 
-public class Register extends AppCompatActivity {
+public class Register extends AppCompatActivity implements Registrarse {
 
     private TextView nombre;
     private TextView dni;
@@ -29,9 +32,11 @@ public class Register extends AppCompatActivity {
     private TextView contrasena;
     private TextView contraseniaRepeat;
     private Spinner spLocalidades;
-    private View view;
+    private ProgressBar pb;
     private String stringDate = "";
     Boolean Error = false;
+    private Button btnRegister;
+    private View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class Register extends AppCompatActivity {
         fecha =  findViewById(R.id.txt_fecha);
         contrasena =  findViewById(R.id.txt_Contrasena);
         contraseniaRepeat = findViewById(R.id.txt_repetirContrasenia);
+        pb = findViewById(R.id.progressBar1);
+        btnRegister = findViewById(R.id.btn_aceptar);
 
         fecha.addTextChangedListener(new TextWatcher() {
             private String current = "";
@@ -116,15 +123,17 @@ public class Register extends AppCompatActivity {
         String contrasenaUser = contrasena.getText().toString();
         String repetirContraseniaUser = contraseniaRepeat.getText().toString();
         Localidad LocalidadSelec = (Localidad) spLocalidades.getSelectedItem();
+        v = view;
         ValidarCampos();
         if(!Error){
-                Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser),emailUser,'1',contrasenaUser);
-                InsertarUsuario task = new InsertarUsuario(user, view.getContext());
-                task.execute();
-                Intent intent = new Intent(this, LogIn.class);
-                startActivity(intent);
-                Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_LONG).show();
+            pb.setVisibility(view.VISIBLE);
+            btnRegister.setEnabled(false);
+            Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser), emailUser, LocalidadSelec.getId(),contrasenaUser);
+            InsertarUsuario task = new InsertarUsuario(user, view.getContext(), Register.this);
+            task.execute();
+            Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
             }
+        Error = false;
         }
 
     boolean isEmailValid(CharSequence email) {
@@ -170,8 +179,7 @@ public class Register extends AppCompatActivity {
             DatosError = SaltoLinea(DatosError, "las Contraseñas no coinciden");
         }
         if(Error){
-            Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
-            Error = false;
+            Toast.makeText(this, DatosError, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -185,5 +193,19 @@ public class Register extends AppCompatActivity {
         Datos += texto;
         return Datos;
     }
+
+    @Override
+    public void showMessage(String msg) {
+        btnRegister.setEnabled(true);
+        pb.setVisibility(v.INVISIBLE);
+        Toast.makeText(this , msg , Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void lanzarActividad(Class<?> tipoActividad) {
+        Intent intent = new Intent(this , tipoActividad);
+        startActivity(intent);
+    }
+
 
 }

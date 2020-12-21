@@ -2,22 +2,17 @@ package com.example.recuperatorio.AccesoDatos;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com.example.recuperatorio.Activity.Comunicacion;
+import com.example.recuperatorio.Interface.Comunicacion;
 import com.example.recuperatorio.Activity.MenuActivity;
 import com.example.recuperatorio.Dominio.Usuario;
 
-import java.util.ArrayList;
-
 public class ObtenerUsuario extends AsyncTask<String, Void, String> {
-    private Comunicacion comunication;
 
+    private Comunicacion comunication;
     private Usuario user;
     private Context context;
     private DataDB db;

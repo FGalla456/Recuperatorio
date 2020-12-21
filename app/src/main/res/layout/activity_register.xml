@@ -154,6 +154,8 @@
                 android:onClick="register"
                 android:text="@string/btn_Aceptar" />
 
+            <include layout="@layout/progress_bar"></include>
+
         </LinearLayout>
     </ScrollView>
 

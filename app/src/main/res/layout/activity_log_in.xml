@@ -92,7 +92,14 @@
                 android:onClick="Redirigir"
                 android:text="@string/txt_registrese"
                 android:textColor="#2196F3" />
+
+            <include layout="@layout/progress_bar"></include>
         </LinearLayout>
+
+
+
     </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

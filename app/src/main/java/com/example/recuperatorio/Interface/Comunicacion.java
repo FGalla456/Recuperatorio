@@ -1,4 +1,4 @@
-package com.example.recuperatorio.Activity;
+package com.example.recuperatorio.Interface;
 
 import com.example.recuperatorio.Dominio.Usuario;
 

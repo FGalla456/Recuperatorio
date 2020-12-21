@@ -10,6 +10,7 @@ import com.example.recuperatorio.Adapter.EventoAdapter;
 import com.example.recuperatorio.Dominio.Categoria;
 import com.example.recuperatorio.Dominio.Evento;
 import com.example.recuperatorio.Dominio.Usuario;
+import com.example.recuperatorio.Interface.Comunicacion;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class ObtenerEventos extends AsyncTask<String, Void, String>{
 
+    private Comunicacion comunication;
     private Evento event;
     private Context context;
     private DataDB db;
@@ -25,11 +27,12 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
     private static ArrayList<Evento> listaEventos = new ArrayList<Evento>();
     private ListView lvEventos;
 
-    public ObtenerEventos(ListView le, Evento e, Context ct)
+    public ObtenerEventos(ListView le, Evento e, Context ct, Comunicacion c)
     {
         event = e;
         context = ct;
         lvEventos = le;
+        this.comunication = c;
     }
 
     @Override
@@ -54,8 +57,8 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
                 even.setHora(rs.getString("hora"));
                 even.setIdCategoria(rs.getInt("id_categoria"));
                 listaEventos.add(even);
+                response = "Conexion exitosa";
             }
-            response = "Conexion exitosa";
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -67,15 +70,12 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
     @Override
     protected void onPostExecute(String response) {
         if (response.equals("Conexion exitosa")){
+            this.comunication.showMessage("Eventos encontrados");
             EventoAdapter adapter = new EventoAdapter(context, listaEventos);
             lvEventos.setAdapter(adapter);
-            event = even;
-            if(event == null){
-                Toast.makeText(context ," No hay Eventos cargados.",Toast.LENGTH_SHORT).show();
-            }
         }
         else{
-            Toast.makeText(context ," No hay Eventos cargados",Toast.LENGTH_SHORT).show();
+            this.comunication.showMessage("No hay Eventos cargados");
         }
     }
 }

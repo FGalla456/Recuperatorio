@@ -5,23 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recuperatorio.AccesoDatos.ObtenerUsuario;
+import com.example.recuperatorio.Interface.Comunicacion;
 import com.example.recuperatorio.R;
 import com.example.recuperatorio.Dominio.Usuario;
 
-public class LogIn extends AppCompatActivity implements  Comunicacion{
+public class LogIn extends AppCompatActivity implements Comunicacion {
 
     private TextView Correo;
     private TextView Contrasena;
-    private TextView Correo1;
-    private TextView Contrasena1;
     private Usuario U = new Usuario();
-    private String NombreUsuario;
-    private String CorreoUsuario;
-
+    private ProgressBar pb;
+    private TextView registrarse;
+    private Button btnIniciar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,9 @@ public class LogIn extends AppCompatActivity implements  Comunicacion{
         setContentView(R.layout.activity_log_in);
         Correo = findViewById(R.id.txt_Correo);
         Contrasena = findViewById(R.id.txt_Contrasena);
-        /*Correo1 = findViewById(R.id.lbl_Correo);
-        Contrasena1= findViewById(R.id.lbl_Contrasena);*/
+        pb = findViewById(R.id.progressBar1);
+        registrarse = findViewById(R.id.txt_Registrese);
+        btnIniciar = findViewById(R.id.btn_Login);
     }
 
     boolean isEmailValid(CharSequence email) {
@@ -41,22 +43,19 @@ public class LogIn extends AppCompatActivity implements  Comunicacion{
     {
         if(!ValidarCampos())
         {
-            if(Correo.getText().toString() != "" && Contrasena.getText().toString() != "")
-            {
-                U.setEmail(Correo.getText().toString());
-                U.setContrasena(Contrasena.getText().toString());
-                try {
+            U.setEmail(Correo.getText().toString());
+            U.setContrasena(Contrasena.getText().toString());
+            pb.setVisibility(view.VISIBLE);
+            btnIniciar.setEnabled(false);
+            registrarse.setEnabled(false);
+            try {
                 ObtenerUsuario task = new ObtenerUsuario(U, view.getContext(), LogIn.this);
                 task.execute();
-                    /*Intent intent = new Intent(this, MenuActivity.class);
-                    startActivity(intent);*/
                 }
                 catch (Exception e){
                     e.printStackTrace();
                     Toast.makeText(this ,"Error al Iniciar sesion",Toast.LENGTH_SHORT).show();
                 }
-
-            }
         }
     }
 
@@ -98,14 +97,16 @@ public class LogIn extends AppCompatActivity implements  Comunicacion{
 
         if(Error == true)
         {
-            Toast.makeText(this, DatosError, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, DatosError, Toast.LENGTH_SHORT).show();
         }
         return  Error;
     }
 
     @Override
     public void showMessage(String msg) {
-        Toast.makeText(this , msg , Toast.LENGTH_LONG).show();
+        btnIniciar.setEnabled(true);
+        registrarse.setEnabled(true);
+        Toast.makeText(this , msg , Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.example.recuperatorio.Dominio.Evento;
-import com.example.recuperatorio.Dominio.Usuario;
+import com.example.recuperatorio.Interface.Registrarse;
 
 import java.sql.Statement;
 
@@ -14,11 +14,13 @@ public class InsertarEvento extends AsyncTask<String, Void, String>{
     private Evento event;
     private Context context;
     private DataDB db;
+    private Registrarse register;
 
-    public InsertarEvento(Evento e, Context ct)
+    public InsertarEvento(Evento e, Context ct, Registrarse r)
     {
         event = e;
         context = ct;
+        register = r;
     }
 
     @Override
@@ -44,7 +46,10 @@ public class InsertarEvento extends AsyncTask<String, Void, String>{
     protected void onPostExecute(String response) {
         if (response.equals("Conexion exitosa"))
         {
-            Toast.makeText(context ,"El Evento se cargó exitosamente",Toast.LENGTH_LONG).show();
+            this.register.showMessage("Evento Ingresado");
+        }
+        else{
+            this.register.showMessage("Error al cargar el Evento");
         }
     }
 

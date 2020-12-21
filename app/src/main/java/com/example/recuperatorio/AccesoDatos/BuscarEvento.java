@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.example.recuperatorio.Adapter.EventoAdapter;
 import com.example.recuperatorio.Dominio.Categoria;
 import com.example.recuperatorio.Dominio.Evento;
+import com.example.recuperatorio.Interface.Comunicacion;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -15,16 +16,19 @@ import java.util.ArrayList;
 
 public class BuscarEvento extends AsyncTask<String, Void, String>{
 
+    private Comunicacion comunication;
     private Context context;
     private DataDB db;
     private String titulo;
     private static ArrayList<Evento> listaEvento = new ArrayList<Evento>();
     private ListView lvEventos;
 
-    public BuscarEvento(Context ct, String title)
+
+    public BuscarEvento(Context ct, String title, Comunicacion c)
     {
         context = ct;
         titulo = title;
+        this.comunication = c;
     }
 
     @Override
@@ -45,8 +49,8 @@ public class BuscarEvento extends AsyncTask<String, Void, String>{
                 ev.setHora(rs.getString("hora"));
                 ev.setIdCategoria(rs.getInt("categoria"));
                 listaEvento.add(ev);
+                response = "Conexion exitosa";
             }
-            response = "Conexion exitosa";
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -59,9 +63,12 @@ public class BuscarEvento extends AsyncTask<String, Void, String>{
     protected void onPostExecute(String response) {
         if (response.equals("Conexion exitosa"))
         {
+            this.comunication.showMessage("Eventos Encontrados");
             EventoAdapter adapter = new EventoAdapter(context, listaEvento);
             lvEventos.setAdapter(adapter);
-            Toast.makeText(context ,"El Evento se cargó exitosamente",Toast.LENGTH_LONG).show();
+        }
+        else{
+            this.comunication.showMessage("No se encontraron resultados");
         }
     }
 }

@@ -65,6 +65,8 @@ android:padding="16dp"
         android:layout_marginTop="20dp"
         android:hint="@string/agregar_evento" />
 
+    <include layout="@layout/progress_bar"></include>
+
 
 </LinearLayout>
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,15 +23,17 @@ import android.widget.Toast;
 import com.example.recuperatorio.AccesoDatos.InsertarEvento;
 import com.example.recuperatorio.AccesoDatos.ObtenerCategorias;
 import com.example.recuperatorio.AccesoDatos.ObtenerEventos;
+import com.example.recuperatorio.Activity.Register;
 import com.example.recuperatorio.Adapter.EventoAdapter;
 import com.example.recuperatorio.Dominio.Evento;
+import com.example.recuperatorio.Interface.Registrarse;
 import com.example.recuperatorio.R;
 import com.example.recuperatorio.ui.FragmentEventAddFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class FragmentEventAdd extends Fragment {
+public class FragmentEventAdd extends Fragment implements Registrarse{
 
     private View view;
     private TextView titulo;
@@ -42,6 +45,7 @@ public class FragmentEventAdd extends Fragment {
     private String stringDate = "";
     private Button btnAgregar;
     private Spinner categorias;
+    private ProgressBar pb;
 
     @Nullable
     @Override
@@ -53,6 +57,7 @@ public class FragmentEventAdd extends Fragment {
         hora = view.findViewById(R.id.hora);
         btnAgregar = view.findViewById(R.id.add_event);
         categorias = view.findViewById(R.id.categoria);
+        pb = view.findViewById(R.id.progressBar1);
         ObtenerCategorias task = new ObtenerCategorias(categorias, view.getContext());
         task.execute();
 
@@ -236,6 +241,8 @@ public class FragmentEventAdd extends Fragment {
     public void addEvent(){
 
         if(!validarCampos()) {
+            btnAgregar.setEnabled(false);
+            pb.setVisibility(view.VISIBLE);
             event = new Evento();
             event.setTitulo(titulo.getText().toString());
             event.setDescription(descripcion.getText().toString());
@@ -245,5 +252,16 @@ public class FragmentEventAdd extends Fragment {
             InsertarEvento task = new InsertarEvento(event, view.getContext());
             task.execute();
         }
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        btnAgregar.setEnabled(true);
+        pb.setVisibility(view.INVISIBLE);
+    }
+
+    @Override
+    public void lanzarActividad(Class<?> tipoActividad) {
+
     }
 }
