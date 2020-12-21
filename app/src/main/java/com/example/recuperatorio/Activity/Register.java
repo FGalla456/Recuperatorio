@@ -133,7 +133,6 @@ public class Register extends AppCompatActivity implements Registrarse {
             Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser), emailUser, LocalidadSelec.getId(),contrasenaUser);
             InsertarUsuario task = new InsertarUsuario(user, view.getContext(), Register.this);
             task.execute();
-            Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
             }
         Error = false;
         }

@@ -7,6 +7,7 @@ public class Evento {
     private String fecha;
     private String hora;
     private int idCategoria;
+    private Categoria Cat;
 
     public Evento(){}
 
@@ -17,6 +18,7 @@ public class Evento {
         this.fecha = fecha;
         this.hora = hora;
         this.idCategoria = idCat;
+        this.Cat = new Categoria();
     }
 
     public int getId() {
@@ -65,5 +67,13 @@ public class Evento {
 
     public void setIdCategoria(int idCategoria) {
         this.idCategoria = idCategoria;
+    }
+
+    public Categoria getCat() {
+        return Cat;
+    }
+
+    public void setCat(Categoria cat) {
+        Cat = cat;
     }
 }

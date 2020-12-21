@@ -32,7 +32,7 @@ public class EventoAdapter extends ArrayAdapter<Evento> {
         tvdescripcion.setText(getItem(position).getDescription()+"");
         tvfecha.setText(getItem(position).getFecha());
         tvhora.setText(getItem(position).getHora());
-        tvcategoria.setText(getItem(position).getIdCategoria()+"");
+        tvcategoria.setText(getItem(position).getCat().getCategoria()+"");
 
         return item;
     }

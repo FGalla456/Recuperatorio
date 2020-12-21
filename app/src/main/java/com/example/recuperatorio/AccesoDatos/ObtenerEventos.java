@@ -37,13 +37,13 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
 
     @Override
     protected String doInBackground(String... strings) {
-
+        Categoria Cat;
         response="";
         db = new DataDB();
         if(listaEventos.size() > 0){
             listaEventos.removeAll(listaEventos);
         }
-        String consulta = "SELECT * from eventos";
+        String consulta = "SELECT * from eventos inner join categorias c on id_categoria = c.id";
         try {
             Statement st = db.AccesoDatos();
             ResultSet rs = st.executeQuery(consulta);
@@ -52,10 +52,12 @@ public class ObtenerEventos extends AsyncTask<String, Void, String>{
                 even = new Evento();
                 even.setId(rs.getInt("id"));
                 even.setTitulo(rs.getString("titulo"));
-                even.setDescription(rs.getString("descripcion"));
+                even.setDescription(rs.getString("Descripcion"));
                 even.setFecha(rs.getString("fecha"));
                 even.setHora(rs.getString("hora"));
                 even.setIdCategoria(rs.getInt("id_categoria"));
+                Cat = new Categoria(rs.getInt(7),rs.getString("categoria"));
+                even.setCat(Cat);
                 listaEventos.add(even);
                 response = "Conexion exitosa";
             }
