@@ -36,11 +36,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawlayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
-    private AlertDialog dialogAccount;
-    private AlertDialog.Builder builder;
-    private AppBarConfiguration mAppBarConfiguration;
     private ActionBarDrawerToggle toggle;
-    private int idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

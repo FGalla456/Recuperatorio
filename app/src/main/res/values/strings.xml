@@ -25,6 +25,7 @@
     <string name="navigation_drawler_close">Cerrar Navegacion</string>
     <string name="navigation_drawler_open">Abrir Navegacion</string>
     <string name="logout">Cerrar Sesion</string>
+    <string name="btnreturn">Regresar</string>
 
 
     <string-array name="Localidades">

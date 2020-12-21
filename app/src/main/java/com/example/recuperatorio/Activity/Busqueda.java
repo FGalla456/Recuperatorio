@@ -41,6 +41,7 @@ public class Busqueda extends AppCompatActivity implements Comunicacion {
             }
         });
         pb = findViewById(R.id.progressBar1);
+        btnAceptar.setEnabled(true);
     }
 
     public void busqueda(View view)

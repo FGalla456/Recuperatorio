@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class Register extends AppCompatActivity implements Registrarse {
     private String stringDate = "";
     Boolean Error = false;
     private Button btnRegister;
+    private Button btnReturn;
     private View v;
 
     @Override
@@ -53,6 +55,7 @@ public class Register extends AppCompatActivity implements Registrarse {
         contraseniaRepeat = findViewById(R.id.txt_repetirContrasenia);
         pb = findViewById(R.id.progressBar1);
         btnRegister = findViewById(R.id.btn_aceptar);
+        btnReturn = findViewById(R.id.btn_regresar);
 
         fecha.addTextChangedListener(new TextWatcher() {
             private String current = "";
@@ -119,15 +122,14 @@ public class Register extends AppCompatActivity implements Registrarse {
         String nombreUser = nombre.getText().toString();
         String dniUser = dni.getText().toString();
         String emailUser = email.getText().toString();
-        String idLocalidad = nombre.getText().toString();
         String contrasenaUser = contrasena.getText().toString();
-        String repetirContraseniaUser = contraseniaRepeat.getText().toString();
         Localidad LocalidadSelec = (Localidad) spLocalidades.getSelectedItem();
         v = view;
         ValidarCampos();
         if(!Error){
             pb.setVisibility(view.VISIBLE);
             btnRegister.setEnabled(false);
+            btnReturn.setEnabled(false);
             Usuario user = new Usuario(nombreUser, stringDate.replace('/','-') ,Integer.parseInt(dniUser), emailUser, LocalidadSelec.getId(),contrasenaUser);
             InsertarUsuario task = new InsertarUsuario(user, view.getContext(), Register.this);
             task.execute();
@@ -135,6 +137,10 @@ public class Register extends AppCompatActivity implements Registrarse {
             }
         Error = false;
         }
+
+    public void returnLogin (View view){
+        lanzarActividad(LogIn.class);
+    }
 
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -197,6 +203,7 @@ public class Register extends AppCompatActivity implements Registrarse {
     @Override
     public void showMessage(String msg) {
         btnRegister.setEnabled(true);
+        btnReturn.setEnabled(true);
         pb.setVisibility(v.INVISIBLE);
         Toast.makeText(this , msg , Toast.LENGTH_SHORT).show();
     }

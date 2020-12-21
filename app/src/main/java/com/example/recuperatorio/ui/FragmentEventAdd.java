@@ -249,7 +249,7 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
             event.setFecha(stringDate.replace('/','-') );
             event.setHora(hora.getText().toString());
             event.setIdCategoria(1);
-            InsertarEvento task = new InsertarEvento(event, view.getContext());
+            InsertarEvento task = new InsertarEvento(event, view.getContext() , FragmentEventAdd.this);
             task.execute();
         }
     }
