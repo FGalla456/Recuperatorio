@@ -260,6 +260,10 @@ public class FragmentEventAdd extends Fragment implements Registrarse{
 
     @Override
     public void showMessage(String msg) {
+        titulo.setText("");
+        descripcion.setText("");
+        fecha.setText("");
+        hora.setText("");
         btnAgregar.setEnabled(true);
         pb.setVisibility(view.INVISIBLE);
         Toast.makeText(view.getContext() , msg , Toast.LENGTH_SHORT).show();

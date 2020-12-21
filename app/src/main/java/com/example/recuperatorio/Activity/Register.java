@@ -179,8 +179,7 @@ public class Register extends AppCompatActivity implements Registrarse {
                 DatosError = SaltoLinea(DatosError, "Ingrese una Contraseña con al menos 6 caracteres");
             }
         }
-        if(contrasena.getText().equals(contraseniaRepeat.getText())) {
-
+        if(contrasena.getText().toString().equals(contraseniaRepeat.getText().toString()) == false) {
             DatosError = SaltoLinea(DatosError, "las Contraseñas no coinciden");
         }
         if(Error){
